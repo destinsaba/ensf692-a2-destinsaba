@@ -1,5 +1,5 @@
 # input_processing.py
-# YOUR NAME, ENSF 692 P24
+# DESTIN SABA, ENSF 692 P24
 # A terminal-based program for processing computer vision changes detected by a car.
 # Detailed specifications are provided via the Assignment 2 README file.
 # You must include the code provided below but you may delete the instructional comments.
@@ -18,24 +18,42 @@ class Sensor:
     # Must include a constructor that uses default values
     # You do not need to provide commenting above the constructor
     def __init__(self):
-        pass
+        self.traffic_light = "green"
+        self.pedestrian_status = "no"
+        self.vehicle_status = "no"
 
     # Replace these comments with your function commenting
-    def update_status(): # You may decide how to implement the arguments for this function
-        pass
+    def update_status(self, light, ped, vehicle): # You may decide how to implement the arguments for this function
+        self.traffic_light = light
+        self.pedestrian_status = ped
+        self.vehicle_status = vehicle
 
 
 
 # The sensor object should be passed to this function to print the action message and current status
 # Replace these comments with your function commenting
 def print_message(sensor):
-    pass
+    if ((sensor.traffic_light == "red") or (sensor.pedestrian_status == "yes") or (sensor.vehicle_status == "yes")):
+        print("STOP")
+    elif ((sensor.traffic_light == "green") and (sensor.pedestrian_status == "no") and (sensor.vehicle_status == "no")):
+        print("Proceed")
+    else:
+        print("Caution")
+
+    print("")
+    print("Light = " + sensor.traffic_light + " , Pedestrian = " + sensor.pedestrian_status + " , Vehicle = " + sensor.vehicle_status + " .")
+    print("")
+
 
 
 
 # Complete the main function below
 def main():
     print("\n***ENSF 692 Car Vision Detector Processing Program***\n")
+    
+    light = Sensor()
+    light.update_status("red","yes","yes")
+    print_message(light)
 
 
 
