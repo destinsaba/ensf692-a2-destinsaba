@@ -23,16 +23,28 @@ class Sensor:
         self.vehicle_status = "no"
 
     # Replace these comments with your function commenting
-    def update_status(self, light, ped, vehicle): # You may decide how to implement the arguments for this function
-        self.traffic_light = light
-        self.pedestrian_status = ped
-        self.vehicle_status = vehicle
+    def update_status(self): # You may decide how to implement the arguments for this function
+        choice = 1
+        while(choice != 0):
+            choice, change = get_input()
+            if (choice == 1): 
+                self.traffic_light = change
+                print_message(self)
+            elif (choice == 2):
+                self.pedestrian_status = change
+                print_message(self)
+            elif (choice == 3):
+                self.vehicle_status = change
+                print_message(self)
+            elif (choice ==4):
+                print_message(self)
 
 
 
 # The sensor object should be passed to this function to print the action message and current status
 # Replace these comments with your function commenting
 def print_message(sensor):
+    print("")
     if ((sensor.traffic_light == "red") or (sensor.pedestrian_status == "yes") or (sensor.vehicle_status == "yes")):
         print("STOP")
     elif ((sensor.traffic_light == "green") and (sensor.pedestrian_status == "no") and (sensor.vehicle_status == "no")):
@@ -44,16 +56,64 @@ def print_message(sensor):
     print("Light = " + sensor.traffic_light + " , Pedestrian = " + sensor.pedestrian_status + " , Vehicle = " + sensor.vehicle_status + " .")
     print("")
 
+#    If menu option 1, 2 or 3 are detected, the user should then be prompted to specify the detected change
+#    A traffic light can be "green", "yellow", or "red"
+#    Pedestrian status can be "yes" or "no"
+#    Vehicle status can be "yes" or "no"
+
+def get_input():
+
+    while (True):
+        print("Are changes detected in the vision input?")
+        try:
+            choice = int(input("Select 1 for light, 2 for pedestrian, 3 for vehicle, or 0 to end the program: "))
+        except ValueError:
+            print("You must select either 1, 2, 3, or 0.")
+            print("")
+            return 5,0
+
+        if choice == 0:
+            return 0,0
+        elif (choice == 1):
+            change = input("What change has been identified?: ")
+            if ((change == "green") or (change == "yellow") or (change == "red")):
+                return choice, change
+            else:
+                print("Invalid vision change.")
+                return 4,0
+
+        elif (choice == 2):
+            change = input("What change has been identified?: ")
+            if ((change == "yes") or (change == "no")):
+                return choice, change
+            else:
+                print("Invalid vision change.")
+                return 4,0
+
+        elif (choice == 3):
+            change = input("What change has been identified?: ")
+            if ((change == "yes") or (change == "no")):
+                return choice, change
+            else:
+                print("Invalid vision change.")
+                return 4,0
+                
+        else:
+            print("You must select either 1, 2, 3, or 0.")
+            print("")
+
+
 
 
 
 # Complete the main function below
 def main():
+    status = Sensor()
     print("\n***ENSF 692 Car Vision Detector Processing Program***\n")
+    status.update_status()
+    exit()
+
     
-    light = Sensor()
-    light.update_status("red","yes","yes")
-    print_message(light)
 
 
 
