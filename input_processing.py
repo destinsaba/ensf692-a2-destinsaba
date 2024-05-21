@@ -5,7 +5,15 @@
 # Detailed specifications are provided via the Assignment 2 README file.
 
 class Sensor:
+    """A class used to create Sensor object.
 
+        Attributes:
+            traffic_light (str): String that represents the traffic light colour, "green" by default.
+            pedestrian_status (str): String that represents the pedestrian status, "no" by default.
+            vehicle_status (str): String that represents the vehicle status, "no" by default.
+            ***Note that self is implicit and is not included!
+
+    """
     def __init__(self):
         # Initialize the sensor status with default values
         self.traffic_light = "green"
@@ -13,9 +21,16 @@ class Sensor:
         self.vehicle_status = "no"
 
     # update_status() acts on the Sensor class. 
-    # It calls the get_input() function to ask the user for input for the traffic light, pedestrian, and vehicle status.
-    # It then processes the input, updates the Class instance variables and prints the result by calling the print_message() function.
     def update_status(self): 
+        """update_status: calls the get_input() function to ask the user for input for the traffic light, pedestrian, and vehicle status.
+        It then processes the input, updates the Class instance variables and prints the result by calling the print_message() function.
+        
+        Args:
+            None
+
+        Returns:
+            None
+        """
         choice = 1
         while(choice != 0):
             # Get user input for the detected changes
@@ -36,13 +51,19 @@ class Sensor:
                 # Print status message without any changes
                 print_message(self)
 
-# The print_message() function accepts a sensor object to print the action message and current status.
-# Any scenario where a red light, a pedestrian or a vehicle are detected will display the message "STOP"
-# A green light with no pedestrian or vehicle detected will display the message "Proceed"
-# A yellow light with no pedestrian or vehicle detected will display the message "Caution"
-# After the action message, the current status of each monitored condition will be printed
-
 def print_message(sensor):
+    """print_message: accepts a sensor object to print the action message and current status.
+    Any scenario where a red light, a pedestrian or a vehicle are detected will display the message "STOP"
+    A green light with no pedestrian or vehicle detected will display the message "Proceed"
+    A yellow light with no pedestrian or vehicle detected will display the message "Caution"
+    After the action message, the current status of each monitored condition will be printed
+        
+        Args:
+            sensor (Sensor): Sensor object that tracks light, pedestrian, and vehicle status.
+
+        Returns:
+            None
+        """
     print("")
     if ((sensor.traffic_light == "red") or (sensor.pedestrian_status == "yes") or (sensor.vehicle_status == "yes")):
         print("STOP")
@@ -62,6 +83,23 @@ def print_message(sensor):
 #  * Vehicle status can be "yes" or "no"
 
 def get_input():
+    """print_message: creates the user interface that asks the user to input the detected status change.
+    If menu option 1, 2 or 3 are detected, the user will be prompted to specify the detected change:
+    A traffic light can be "green", "yellow", or "red".
+    Pedestrian status can be "yes" or "no".
+    Vehicle status can be "yes" or "no".
+        
+        Args:
+            None
+
+        Returns:
+            choice, change: if user correctly inputs menu option and vision change. \n
+            0,0: if user inputs 0. \n
+            4,0: if user inputs invalid vision change. \n
+            5,0: if invalid option for input detection selected. \n
+
+
+        """
 
     while (True):
         print("Are changes detected in the vision input?")
