@@ -7,6 +7,7 @@
 class Sensor:
 
     def __init__(self):
+        # Initialize the sensor status with default values
         self.traffic_light = "green"
         self.pedestrian_status = "no"
         self.vehicle_status = "no"
@@ -17,17 +18,22 @@ class Sensor:
     def update_status(self): 
         choice = 1
         while(choice != 0):
+            # Get user input for the detected changes
             choice, change = get_input()
             if (choice == 1): 
+                # Update traffic light status and print updated status message
                 self.traffic_light = change
                 print_message(self)
             elif (choice == 2):
+                # Update pedestrian status and print updated status message
                 self.pedestrian_status = change
                 print_message(self)
             elif (choice == 3):
+                # Update vehicle status and print updated status message
                 self.vehicle_status = change
                 print_message(self)
             elif (choice ==4):
+                # Print status message without any changes
                 print_message(self)
 
 # The print_message() function accepts a sensor object to print the action message and current status.
@@ -60,47 +66,58 @@ def get_input():
     while (True):
         print("Are changes detected in the vision input?")
         try:
+            # Ask user to select an option for input detection
             choice = int(input("Select 1 for light, 2 for pedestrian, 3 for vehicle, or 0 to end the program: "))
         except ValueError:
+            # Handle invalid input
             print("You must select either 1, 2, 3, or 0.")
             print("")
             return 5,0
 
         if choice == 0:
+            # End the program
             return 0,0
         elif (choice == 1):
+            # Ask for traffic light change
             change = input("What change has been identified?: ")
             if ((change == "green") or (change == "yellow") or (change == "red")):
                 return choice, change
             else:
+                # Handle invalid input
                 print("Invalid vision change.")
                 return 4,0
 
         elif (choice == 2):
+            # Ask for pedestrian status change
             change = input("What change has been identified?: ")
             if ((change == "yes") or (change == "no")):
                 return choice, change
             else:
+                # Handle invalid input
                 print("Invalid vision change.")
                 return 4,0
 
         elif (choice == 3):
+            # Ask for vehicle status change
             change = input("What change has been identified?: ")
             if ((change == "yes") or (change == "no")):
                 return choice, change
             else:
+                # Handle invalid input
                 print("Invalid vision change.")
                 return 4,0
                 
         else:
+            # Handle invalid menu choice
             print("You must select either 1, 2, 3, or 0.")
             print("")
 
 # Creates a Sensor object and runs the update_status() function.
-
 def main():
+    # Initialize a Sensor object
     status = Sensor()
     print("\n***ENSF 692 Car Vision Detector Processing Program***\n")
+    # Start the status update process
     status.update_status()
     exit()
 
